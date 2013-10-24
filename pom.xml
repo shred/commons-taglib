@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.shredzone.commons</groupId>
     <artifactId>commons-taglib</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>Shredzone Commons: Taglib</name>
     <description>Shredzone Commons: Spring Taglib Support</description>
     <url>http://commons.shredzone.org</url>
@@ -18,7 +18,8 @@
         <url>scm:git:git@github.com:shred/commons-taglib.git</url>
         <connection>scm:git:git@github.com:shred/commons-taglib.git</connection>
         <developerConnection>scm:git:git@github.com:shred/commons-taglib.git</developerConnection>
-    </scm>
+      <tag>v1.0</tag>
+  </scm>
     <issueManagement>
         <system>Redmine</system>
         <url>http://www.shredzone.org/projects/commons-taglib/issues</url>
