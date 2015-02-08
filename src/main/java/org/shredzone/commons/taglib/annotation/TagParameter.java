@@ -31,15 +31,10 @@ import java.lang.annotation.Target;
  *
  * @author Richard "Shred" Körber
  */
-@Target(ElementType.FIELD)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface TagParameter {
-
-    /**
-     * Parameter name. Will be derived from the field name if none is given.
-     */
-    String name() default "";
 
     /**
      * Is the parameter required? Defaults to {@code false}.

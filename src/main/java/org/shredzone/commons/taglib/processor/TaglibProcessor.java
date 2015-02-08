@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Messager;
@@ -65,6 +67,7 @@ import org.springframework.util.StringUtils;
 public class TaglibProcessor extends AbstractProcessor {
 
     private static final Map<String, String> PROXY_MAP = new HashMap<>();
+    private static final Pattern METHOD_PATTERN = Pattern.compile("^set([^(]+)\\((.+?)\\)$");
 
     static {
         PROXY_MAP.put(javax.servlet.jsp.tagext.Tag.class.getName(), TagProxy.class.getName());
@@ -247,7 +250,7 @@ public class TaglibProcessor extends AbstractProcessor {
      */
     private void processTagParameter(Element element) {
         TagParameter tagAnno = element.getAnnotation(TagParameter.class);
-        String fieldName = element.toString();
+        String methodName = element.toString();
         String className = element.getEnclosingElement().toString();
 
         TagBean tag = taglib.getTagForClass(className);
@@ -255,8 +258,17 @@ public class TaglibProcessor extends AbstractProcessor {
             throw new ProcessorException("Missing @Tag on class: " + className);
         }
 
-        String attrName = computeAttributeName(tagAnno.name(), fieldName);
-        String attrType = element.asType().toString();
+        Matcher m = METHOD_PATTERN.matcher(methodName);
+        if (!m.matches()) {
+            throw new ProcessorException("@TagParameter must be used on a setter method: " + methodName);
+        }
+
+        String attrName = StringUtils.uncapitalize(m.group(1));
+        String attrType = m.group(2);
+
+        if (attrType.indexOf(',') >= 0) {
+            throw new ProcessorException("@TagParameter setter only allows one parameter: " + methodName);
+        }
 
         AttributeBean attr = new AttributeBean(attrName, attrType, tagAnno.required(), tagAnno.rtexprvalue());
         tag.addAttribute(attr);
@@ -281,25 +293,6 @@ public class TaglibProcessor extends AbstractProcessor {
                 result = result.substring(0, result.length() - 3);
             }
             result = StringUtils.uncapitalize(result);
-        }
-        return result;
-    }
-
-    /**
-     * Computes the name of an attribute. If there was a name given in the annotation, it
-     * will be used. Otherwise, a name is derived from the field name where the attribute
-     * is stored.
-     *
-     * @param annotation
-     *            Attribute name, as given in the annotation
-     * @param fieldName
-     *            Name of the field
-     * @return Name of the attribute
-     */
-    private String computeAttributeName(String annotation, String fieldName) {
-        String result = annotation;
-        if (!StringUtils.hasText(result)) {
-            result = fieldName;
         }
         return result;
     }
@@ -371,8 +364,8 @@ public class TaglibProcessor extends AbstractProcessor {
                         attr.getName()
                 ).println();
 
-                out.printf("    setParameter(\"%s\", _%s);",
-                        attr.getName(),
+                out.printf("    getTargetBean().set%s(_%s);",
+                        StringUtils.capitalize(attr.getName()),
                         attr.getName()
                 ).println();
 

@@ -19,17 +19,13 @@
  */
 package org.shredzone.commons.taglib.proxy;
 
-import java.lang.reflect.Field;
 import java.util.Enumeration;
 
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspTag;
 
-import org.shredzone.commons.taglib.annotation.TagParameter;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.util.ReflectionUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.FrameworkServlet;
 
 /**
@@ -98,52 +94,6 @@ public abstract class AbstractTagProxy<T extends JspTag> implements JspTag, Prox
     @Override
     public T getTargetBean() {
         return tagImpl;
-    }
-
-    /**
-     * Sets a TagParameter annotated parameter in the target implementation.
-     *
-     * @param name
-     *            Parameter name
-     * @param value
-     *            Parameter value
-     */
-    protected void setParameter(String name, Object value) {
-        boolean fieldSet = false;
-        // TODO: getDeclaredFields is not recursive!
-        // TODO: create a name/field map on construction time!
-        // TODO: also support multiple fields and setter methods!
-        for (Field field : tagImpl.getClass().getDeclaredFields()) {
-            TagParameter param = field.getAnnotation(TagParameter.class);
-            if (param != null && checkName(field, param, name)) {
-                ReflectionUtils.makeAccessible(field);
-                ReflectionUtils.setField(field, tagImpl, value);
-                fieldSet = true;
-            }
-        }
-
-        if (!fieldSet) {
-            throw new IllegalArgumentException("Missing property '" + name + "'");
-        }
-    }
-
-    /**
-     * Checks if the target implementation has a parameter with the given name.
-     *
-     * @param field
-     *            Field to be set
-     * @param param
-     *            TagParameter describing the parameter
-     * @param name
-     *            Parameter name
-     * @return {@code true} if there is such a parameter.
-     */
-    private boolean checkName(Field field, TagParameter param, String name) {
-        if (StringUtils.hasText(param.name()) && param.name().equals(name))
-            return true;
-        if (field.getName().equals(name))
-            return true;
-        return false;
     }
 
 }
