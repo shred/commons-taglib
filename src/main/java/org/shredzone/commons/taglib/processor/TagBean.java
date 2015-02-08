@@ -32,7 +32,7 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
  */
 public class TagBean implements Comparable<TagBean> {
 
-    private Map<String, AttributeBean> attributes = new HashMap<String, AttributeBean>();
+    private Map<String, AttributeBean> attributes = new HashMap<>();
 
     private final String name;
     private final String className;

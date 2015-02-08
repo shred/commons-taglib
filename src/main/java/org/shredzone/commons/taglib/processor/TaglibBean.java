@@ -30,8 +30,8 @@ import java.util.Map;
  */
 public class TaglibBean {
 
-    private Map<String, TagBean> classTagMap = new HashMap<String, TagBean>();
-    private Map<String, TagBean> tags = new HashMap<String, TagBean>();
+    private Map<String, TagBean> classTagMap = new HashMap<>();
+    private Map<String, TagBean> tags = new HashMap<>();
 
     private String tlibversion;
     private String jspversion;

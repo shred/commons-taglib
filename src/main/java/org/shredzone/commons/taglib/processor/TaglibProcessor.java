@@ -64,7 +64,7 @@ import org.springframework.util.StringUtils;
 @SupportedAnnotationTypes("org.shredzone.commons.taglib.annotation.*")
 public class TaglibProcessor extends AbstractProcessor {
 
-    private static final Map<String, String> PROXY_MAP = new HashMap<String, String>();
+    private static final Map<String, String> PROXY_MAP = new HashMap<>();
 
     static {
         PROXY_MAP.put(javax.servlet.jsp.tagext.Tag.class.getName(), TagProxy.class.getName());
@@ -108,12 +108,7 @@ public class TaglibProcessor extends AbstractProcessor {
                 generateTaglibTld(taglib.getTldName());
             }
 
-        } catch (ProcessorException ex) {
-            Messager messager = processingEnv.getMessager();
-            messager.printMessage(Diagnostic.Kind.ERROR, ex.getMessage());
-            return false;
-
-        } catch (IOException ex) {
+        } catch (ProcessorException|IOException ex) {
             Messager messager = processingEnv.getMessager();
             messager.printMessage(Diagnostic.Kind.ERROR, ex.getMessage());
             return false;
@@ -324,10 +319,8 @@ public class TaglibProcessor extends AbstractProcessor {
             beanFactoryReference = taglib.getBeanFactoryReference();
         }
 
-        JavaFileObject src= processingEnv.getFiler().createSourceFile(tag.getProxyClassName());
-        PrintWriter out = new PrintWriter(src.openWriter());
+        JavaFileObject src = processingEnv.getFiler().createSourceFile(tag.getProxyClassName());
 
-        // Package name
         String packageName = null;
         int packPos = tag.getClassName().lastIndexOf('.');
         if (packPos >= 0) {
@@ -336,7 +329,7 @@ public class TaglibProcessor extends AbstractProcessor {
 
         String proxyClass = PROXY_MAP.get(tag.getType());
 
-        try {
+        try (PrintWriter out = new PrintWriter(src.openWriter())) {
             if (packageName != null) {
                 out.printf("package %s;\n",
                         packageName
@@ -387,8 +380,6 @@ public class TaglibProcessor extends AbstractProcessor {
             }
 
             out.println("}");
-        } finally {
-            out.close();
         }
     }
 
@@ -402,8 +393,7 @@ public class TaglibProcessor extends AbstractProcessor {
      */
     private void generateTaglibTld(String tldfile) throws IOException {
         FileObject file = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", tldfile);
-        PrintWriter out = new PrintWriter(new OutputStreamWriter(file.openOutputStream(), "UTF-8"));
-        try {
+        try (PrintWriter out = new PrintWriter(new OutputStreamWriter(file.openOutputStream(), "UTF-8"))) {
             out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             out.println("<!DOCTYPE taglib PUBLIC \"-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN\" \"http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd\">");
             out.println("<!-- Generated file, do not edit! -->");
@@ -435,8 +425,6 @@ public class TaglibProcessor extends AbstractProcessor {
             }
 
             out.println("</taglib>");
-        } finally {
-            out.close();
         }
     }
 
