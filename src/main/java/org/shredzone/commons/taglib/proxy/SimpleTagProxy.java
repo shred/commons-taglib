@@ -37,7 +37,7 @@ public abstract class SimpleTagProxy<T extends SimpleTag> extends AbstractTagPro
 
     @Override
     public void doTag() throws JspException, IOException {
-        getTargetBean().getParent();
+        getTargetBean().doTag();
     }
 
     @Override
