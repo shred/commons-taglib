@@ -15,14 +15,14 @@
         </license>
     </licenses>
     <scm>
-        <url>scm:git:git@github.com:shred/commons-taglib.git</url>
+        <url>https://github.com/shred/commons-taglib/</url>
         <connection>scm:git:git@github.com:shred/commons-taglib.git</connection>
         <developerConnection>scm:git:git@github.com:shred/commons-taglib.git</developerConnection>
       <tag>HEAD</tag>
   </scm>
     <issueManagement>
-        <system>Redmine</system>
-        <url>http://www.shredzone.org/projects/commons-taglib/issues</url>
+        <system>GitHub Issues</system>
+        <url>https://github.com/shred/commons-taglib/issues</url>
     </issueManagement>
     <developers>
         <developer>
