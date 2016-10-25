@@ -1,4 +1,4 @@
-# commons-taglib ![build status](https://jenkins.shredzone.net/project/commons-taglib/builds/status.png?ref=master)
+# commons-taglib ![build status](https://shredzone.org/badge/commons-taglib.svg)
 
 Taglib support for Spring.
 
@@ -13,7 +13,7 @@ This software is part of the Shredzone Commons.
 
 ## Documentation
 
-See the [online documentation](http://www.shredzone.org/maven/commons-taglib/) for examples.
+See the [online documentation](https://shredzone.org/maven/commons-taglib/) for examples.
 
 ## Contribute
 
