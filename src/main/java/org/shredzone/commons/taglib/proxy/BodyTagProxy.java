@@ -27,6 +27,8 @@ import javax.servlet.jsp.tagext.BodyTag;
  * A proxy that implements {@link BodyTag} and allows the target implementation to use
  * dependency injection.
  *
+ * @param <T>
+ *            Type of the {@link BodyTag} this proxy delegates to
  * @author Richard "Shred" Körber
  */
 public abstract class BodyTagProxy<T extends BodyTag> extends IterationTagProxy<T> implements BodyTag {

@@ -130,7 +130,9 @@ public class TagBean implements Comparable<TagBean> {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof TagBean)) return false;
+        if (obj == null || !(obj instanceof TagBean)) {
+            return false;
+        }
         return ((TagBean) obj).getName().equals(name);
     }
 

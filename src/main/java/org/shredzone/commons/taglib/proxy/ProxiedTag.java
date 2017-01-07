@@ -25,6 +25,8 @@ import javax.servlet.jsp.tagext.JspTag;
  * This interface marks the Tag class as proxied tag, and gives access to the target tag
  * implementation.
  *
+ * @param <T>
+ *            Type of the {@link JspTag} this proxy delegates to
  * @author Richard "Shred" Körber
  */
 public interface ProxiedTag<T extends JspTag> {

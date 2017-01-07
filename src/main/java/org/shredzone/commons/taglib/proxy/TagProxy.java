@@ -28,6 +28,8 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
  * A proxy that implements {@link Tag} and allows the target implementation to use
  * dependency injection.
  *
+ * @param <T>
+ *            Type of the {@link Tag} this proxy delegates to
  * @author Richard "Shred" Körber
  */
 public abstract class TagProxy<T extends Tag> extends AbstractTagProxy<T> implements Tag {
@@ -65,6 +67,9 @@ public abstract class TagProxy<T extends Tag> extends AbstractTagProxy<T> implem
 
     /**
      * Handles {@link TryCatchFinally} implementations.
+     *
+     * @param t
+     *            Caught exception
      */
     public void doCatch(Throwable t)
     throws Throwable {

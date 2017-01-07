@@ -26,6 +26,8 @@ import javax.servlet.jsp.tagext.IterationTag;
  * A proxy that implements {@link IterationTag} and allows the target implementation to
  * use dependency injection.
  *
+ * @param <T>
+ *            Type of the {@link IterationTag} this proxy delegates to
  * @author Richard "Shred" Körber
  */
 public abstract class IterationTagProxy<T extends IterationTag> extends TagProxy<T> implements IterationTag {

@@ -66,7 +66,9 @@ public class AttributeBean implements Comparable<AttributeBean> {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof AttributeBean)) return false;
+        if (obj == null || !(obj instanceof AttributeBean)) {
+            return false;
+        }
         return ((AttributeBean) obj).getName().equals(name);
     }
 

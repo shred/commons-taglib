@@ -31,6 +31,8 @@ import javax.servlet.jsp.tagext.SimpleTag;
  * A proxy that implements {@link SimpleTag} and allows the target implementation to use
  * dependency injection.
  *
+ * @param <T>
+ *            Type of the {@link SimpleTag} this proxy delegates to
  * @author Richard "Shred" Körber
  */
 public abstract class SimpleTagProxy<T extends SimpleTag> extends AbstractTagProxy<T> implements SimpleTag {

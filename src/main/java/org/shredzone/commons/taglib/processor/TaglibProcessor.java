@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -111,7 +113,8 @@ public class TaglibProcessor extends AbstractProcessor {
                 generateTaglibTld(taglib.getTldName());
             }
 
-        } catch (ProcessorException|IOException ex) {
+        } catch (ProcessorException | IOException ex) {
+            Logger.getLogger(TaglibProcessor.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             Messager messager = processingEnv.getMessager();
             messager.printMessage(Diagnostic.Kind.ERROR, ex.getMessage());
             return false;
@@ -142,6 +145,7 @@ public class TaglibProcessor extends AbstractProcessor {
             tagTypeClass = tagType.getName();
         } catch(MirroredTypeException ex) {
             // This is a hack, see http://forums.sun.com/thread.jspa?threadID=791053
+            Logger.getLogger(TaglibProcessor.class.getName()).log(Level.FINE, "use type mirror", ex);
             tagTypeClass = ex.getTypeMirror().toString();
         }
 
@@ -324,9 +328,8 @@ public class TaglibProcessor extends AbstractProcessor {
 
         try (PrintWriter out = new PrintWriter(src.openWriter())) {
             if (packageName != null) {
-                out.printf("package %s;\n",
-                        packageName
-                ).println();
+                out.printf("package %s;", packageName).println();
+                out.println();
             }
 
             out.print("@javax.annotation.Generated(\"");
@@ -337,7 +340,7 @@ public class TaglibProcessor extends AbstractProcessor {
                     StringUtils.unqualify(tag.getProxyClassName()),
                     proxyClass,
                     tag.getClassName(),
-                    (tag.isTryCatchFinally() ? "implements javax.servlet.jsp.tagext.TryCatchFinally" : "")
+                    tag.isTryCatchFinally() ? "implements javax.servlet.jsp.tagext.TryCatchFinally" : ""
             ).println();
 
             if (beanFactoryReference != null) {
@@ -357,7 +360,7 @@ public class TaglibProcessor extends AbstractProcessor {
             out.printf("    return \"%s\";", tag.getBeanName()).println();
             out.println("  }");
 
-            for (AttributeBean attr : new TreeSet<AttributeBean>(tag.getAttributes())) {
+            for (AttributeBean attr : new TreeSet<>(tag.getAttributes())) {
                 out.printf("  public void set%s(%s _%s) {",
                         StringUtils.capitalize(attr.getName()),
                         attr.getType(),
@@ -397,7 +400,7 @@ public class TaglibProcessor extends AbstractProcessor {
             out.printf("  <uri>%s</uri>", escapeXml(taglib.getUri())).println();
             out.printf("  <info>%s</info>", escapeXml(taglib.getInfo())).println();
 
-            for (TagBean tag : new TreeSet<TagBean>(taglib.getTags())) {
+            for (TagBean tag : new TreeSet<>(taglib.getTags())) {
                 out.println("  <tag>");
                 out.printf("    <name>%s</name>", tag.getName()).println();
                 out.printf("    <tagclass>%s</tagclass>", tag.getProxyClassName()).println();
@@ -406,7 +409,7 @@ public class TaglibProcessor extends AbstractProcessor {
                     out.printf("    <info>%s</info>", escapeXml(tag.getInfo())).println();
                 }
 
-                for (AttributeBean attr : new TreeSet<AttributeBean>(tag.getAttributes())) {
+                for (AttributeBean attr : new TreeSet<>(tag.getAttributes())) {
                     out.println("    <attribute>");
                     out.printf("      <name>%s</name>", attr.getName()).println();
                     out.printf("      <required>%s</required>", String.valueOf(attr.isRequired())).println();

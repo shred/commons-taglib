@@ -27,6 +27,12 @@ package org.shredzone.commons.taglib.processor;
 public class ProcessorException extends RuntimeException {
     private static final long serialVersionUID = -5858868690095180313L;
 
+    /**
+     * Creates a new {@link ProcessorException}.
+     *
+     * @param message
+     *            Reason for the exception
+     */
     public ProcessorException(String message) {
         super(message);
     }

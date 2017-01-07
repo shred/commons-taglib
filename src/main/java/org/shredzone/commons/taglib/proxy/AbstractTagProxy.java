@@ -31,6 +31,8 @@ import org.springframework.web.servlet.FrameworkServlet;
 /**
  * An abstract TagProxy implementation that offers all basic methods.
  *
+ * @param <T>
+ *            Type of the {@link JspTag} this proxy delegates to
  * @author Richard "Shred" Körber
  */
 public abstract class AbstractTagProxy<T extends JspTag> implements JspTag, ProxiedTag<T> {
