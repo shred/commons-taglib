@@ -1,4 +1,4 @@
-# commons-taglib ![build status](https://shredzone.org/badge/commons-taglib.svg) ![maven central](https://maven-badges.herokuapp.com/maven-central/org.shredzone.commons/commons-taglib/badge.svg)
+# commons-taglib ![build status](https://shredzone.org/badge/commons-taglib.svg) ![maven central](https://shredzone.org/maven-central/org.shredzone.commons/commons-taglib/badge.svg)
 
 Taglib support for Spring.
 
