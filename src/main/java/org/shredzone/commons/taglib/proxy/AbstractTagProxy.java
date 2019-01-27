@@ -21,6 +21,7 @@ package org.shredzone.commons.taglib.proxy;
 
 import java.util.Enumeration;
 
+import javax.annotation.Nonnull;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.JspTag;
@@ -50,7 +51,7 @@ public abstract class AbstractTagProxy<T extends JspTag> implements JspTag, Prox
      *            {@link JspContext}
      */
     @SuppressWarnings("unchecked")
-    protected void initTargetBean(JspContext jspContext) {
+    protected void initTargetBean(@Nonnull JspContext jspContext) {
         BeanFactory bf = getBeanFactory(jspContext);
 
         String beanName = getBeanName();
@@ -71,7 +72,7 @@ public abstract class AbstractTagProxy<T extends JspTag> implements JspTag, Prox
      * @return {@link BeanFactory} found
      */
     @SuppressWarnings("unchecked")
-    protected BeanFactory getBeanFactory(JspContext jspContext) {
+    protected @Nonnull BeanFactory getBeanFactory(@Nonnull JspContext jspContext) {
         Object bfCache = jspContext.getAttribute(TAGPROXY_BEANFACTORY_CACHE, PageContext.APPLICATION_SCOPE);
         if (bfCache != null && bfCache instanceof BeanFactory) {
             return (BeanFactory) bfCache;

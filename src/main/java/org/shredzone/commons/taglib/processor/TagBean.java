@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.servlet.jsp.tagext.TryCatchFinally;
 
 /**
@@ -56,20 +57,20 @@ public class TagBean implements Comparable<TagBean> {
      * @param typeClass
      *            Tag type class
      */
-    public TagBean(String name, String className, String bodycontent, String typeClass) {
+    public TagBean(@Nonnull String name, @Nonnull String className, @Nonnull String bodycontent, @Nonnull String typeClass) {
         this.name = name;
         this.className = className;
         this.bodycontent = bodycontent;
         this.typeClass = typeClass;
     }
 
-    public String getName()                     { return name; }
+    public @Nonnull String getName()            { return name; }
 
-    public String getClassName()                { return className; }
+    public @Nonnull String getClassName()       { return className; }
 
-    public String getBodycontent()              { return bodycontent; }
+    public @Nonnull String getBodycontent()     { return bodycontent; }
 
-    public String getType()                     { return typeClass; }
+    public @Nonnull String getType()            { return typeClass; }
 
     /**
      * Information about the tag.
@@ -107,7 +108,7 @@ public class TagBean implements Comparable<TagBean> {
      * @param attribute
      *            {@link AttributeBean} of the tag attribute
      */
-    public void addAttribute(AttributeBean attribute) {
+    public void addAttribute(@Nonnull AttributeBean attribute) {
         if (attributes.containsKey(attribute.getName())) {
             throw new ProcessorException("Tag " + name + ": parameter " + attribute.getName() + " already defined");
         }
@@ -119,7 +120,7 @@ public class TagBean implements Comparable<TagBean> {
      *
      * @return Collection of {@link AttributeBean} of all tag attributes
      */
-    public Collection<AttributeBean> getAttributes() {
+    public @Nonnull Collection<AttributeBean> getAttributes() {
         return attributes.values();
     }
 

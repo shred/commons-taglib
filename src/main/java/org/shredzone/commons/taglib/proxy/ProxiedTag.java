@@ -19,6 +19,7 @@
  */
 package org.shredzone.commons.taglib.proxy;
 
+import javax.annotation.Nonnull;
 import javax.servlet.jsp.tagext.JspTag;
 
 /**
@@ -36,6 +37,6 @@ public interface ProxiedTag<T extends JspTag> {
      *
      * @return Target bean
      */
-    T getTargetBean();
+    @Nonnull T getTargetBean();
 
 }

@@ -19,6 +19,7 @@
  */
 package org.shredzone.commons.taglib;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -29,6 +30,7 @@ import org.shredzone.commons.taglib.proxy.ProxiedTag;
  *
  * @author Richard "Shred" Körber
  */
+@ParametersAreNonnullByDefault
 public final class TaglibUtils {
 
     private TaglibUtils() {}

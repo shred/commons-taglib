@@ -23,6 +23,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 /**
  * This bean stores all information about a tag library.
  *
@@ -90,7 +92,7 @@ public class TaglibBean {
      * @param tag
      *            {@link TagBean} to be added
      */
-    public void addTag(TagBean tag) {
+    public void addTag(@Nonnull TagBean tag) {
         if (tags.containsKey(tag.getName())) {
             throw new ProcessorException("Tag '" + tag.getName() + "' already defined");
         }
@@ -103,7 +105,7 @@ public class TaglibBean {
      *
      * @return Collection of {@link TagBean}
      */
-    public Collection<TagBean> getTags() {
+    public @Nonnull Collection<TagBean> getTags() {
         return tags.values();
     }
 
@@ -115,7 +117,7 @@ public class TaglibBean {
      * @return {@link TagBean} that belongs to that class, or {@code null} if there is
      *         none.
      */
-    public TagBean getTagForClass(String className) {
+    public TagBean getTagForClass(@Nonnull String className) {
         return classTagMap.get(className);
     }
 

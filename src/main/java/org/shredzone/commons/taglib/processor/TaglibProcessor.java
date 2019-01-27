@@ -31,6 +31,8 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.RoundEnvironment;
@@ -66,6 +68,7 @@ import org.springframework.util.StringUtils;
  * @author Richard "Shred" Körber
  */
 @SupportedAnnotationTypes("org.shredzone.commons.taglib.annotation.*")
+@ParametersAreNonnullByDefault
 public class TaglibProcessor extends AbstractProcessor {
 
     private static final Map<String, String> PROXY_MAP = new HashMap<>();
@@ -289,7 +292,7 @@ public class TaglibProcessor extends AbstractProcessor {
      *            Name of the tag class
      * @return Name of the tag
      */
-    private String computeTagName(String annotation, String className) {
+    private @Nonnull String computeTagName(String annotation, String className) {
         String result = annotation;
         if (!StringUtils.hasText(result)) {
             result = StringUtils.unqualify(className);
@@ -431,7 +434,7 @@ public class TaglibProcessor extends AbstractProcessor {
      *            String to be escaped
      * @return Escaped text
      */
-    private static String escapeXml(String text) {
+    private static @Nonnull String escapeXml(String text) {
         return text.replace("&", "&amp;").replace("<", "&lt;").replace("\"", "&quot;");
     }
 

@@ -19,12 +19,18 @@
  */
 package org.shredzone.commons.taglib.processor;
 
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.annotation.concurrent.Immutable;
+
 /**
  * A bean that stores the parameters of a tag attribute. This bean is immutable once it is
  * created.
  *
  * @author Richard "Shred" Körber
  */
+@ParametersAreNonnullByDefault
+@Immutable
 public class AttributeBean implements Comparable<AttributeBean> {
 
     private final String name;
@@ -51,9 +57,9 @@ public class AttributeBean implements Comparable<AttributeBean> {
         this.rtexprvalue = rtexprvalue;
     }
 
-    public String getName()                 { return name; }
+    public @Nonnull String getName()        { return name; }
 
-    public String getType()                 { return type; }
+    public @Nonnull String getType()        { return type; }
 
     public boolean isRequired()             { return required; }
 

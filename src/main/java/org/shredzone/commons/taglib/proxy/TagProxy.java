@@ -19,6 +19,7 @@
  */
 package org.shredzone.commons.taglib.proxy;
 
+import javax.annotation.Nonnull;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
@@ -71,7 +72,7 @@ public abstract class TagProxy<T extends Tag> extends AbstractTagProxy<T> implem
      * @param t
      *            Caught exception
      */
-    public void doCatch(Throwable t)
+    public void doCatch(@Nonnull Throwable t)
     throws Throwable {
         T target = getTargetBean();
         if (target instanceof TryCatchFinally) {
