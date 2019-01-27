@@ -19,3 +19,12 @@ _commons-taglib_ is available at Maven Central. Just add this snippet to your `p
   <version>${project.version}</version>
 </dependency>
 ```
+
+Java Module
+-----------
+
+Add this line to your module descriptor:
+
+```java
+requires org.shredzone.commons.taglib;
+```
