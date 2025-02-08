@@ -17,8 +17,8 @@ See the [online documentation](https://shredzone.org/maven/commons-taglib/) for 
 
 ## Contribute
 
-* Fork the [Source code at GitHub](https://github.com/shred/commons-taglib). Feel free to send pull requests.
-* Found a bug? [File a bug report!](https://github.com/shred/commons-taglib/issues)
+* Fork the [Source code at Codeberg](https://codeberg.org/shred/commons-taglib). Feel free to send pull requests.
+* Found a bug? [File a bug report!](https://codeberg.org/shred/commons-taglib/issues)
 
 ## License
 
